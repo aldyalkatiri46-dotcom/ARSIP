@@ -18,7 +18,7 @@
                 <i class="fas fa-box-archive"></i>
                 <h1>Vault<span>Archive</span></h1>
             </div>
-            <p>Solusi arsip digital: Simpan, Kelola, dan Unduh berkas dalam berbagai format.</p>
+            <p>Solusi arsip digital: Simpan, Kelola, dan Unduh berkas dalam berbagai format (Cloud Edition).</p>
         </header>
 
         <main class="grid-container">
@@ -42,12 +42,12 @@
                         <input type="date" id="date" required>
                     </div>
                     <div class="input-box">
-                        <label>Pilih File Asli (Maks 2MB)</label>
+                        <label>Pilih File Asli (PDF/Gambar)</label>
                         <input type="file" id="fileInput" accept="image/*,application/pdf" required>
                     </div>
                     <button type="submit" id="saveBtn">
-                        <span>Amankan Berkas</span>
-                        <i class="fas fa-shield-check"></i>
+                        <span>Amankan ke Cloud</span>
+                        <i class="fas fa-cloud-upload-alt"></i>
                     </button>
                 </form>
             </section>
@@ -56,7 +56,7 @@
             <section class="card slide-in-right">
                 <div class="card-header">
                     <i class="fas fa-database"></i>
-                    <h3>Data Berkas Tersimpan</h3>
+                    <h3>Data Berkas di Server Google</h3>
                 </div>
                 <div class="table-wrapper">
                     <table>
@@ -65,47 +65,44 @@
                                 <th>Informasi Berkas</th>
                                 <th>Kategori</th>
                                 <th style="text-align: center;">Export Laporan</th>
-                                <th style="text-align: center;">File Asli</th>
+                                <th style="text-align: center;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="archiveList">
-                            <!-- Data dimuat via JS -->
+                            <!-- Data akan dimuat dari Firebase Firestore -->
                         </tbody>
                     </table>
                 </div>
             </section>
         </main>
     </div>
-<script type="module">
-  // Import SDK Dasar
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  
-  // Import SDK tambahan yang kita butuhkan (Database & Storage)
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-  // Konfigurasi milikmu
-  const firebaseConfig = {
-    apiKey: "AIzaSyCm94rp7EJcz7U9LKBjcwmhkyyCCTeDfxY",
-    authDomain: "arsip-digital-1c79a.firebaseapp.com",
-    projectId: "arsip-digital-1c79a",
-    storageBucket: "arsip-digital-1c79a.firebasestorage.app",
-    messagingSenderId: "935288667143",
-    appId: "1:935288667143:web:ed40a042a47f9f5e60fea2"
-  };
+    <!-- KONFIGURASI FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-  // Inisialisasi Firebase
-  const app = initializeApp(firebaseConfig);
-  
-  // Inisialisasi Layanan (Database & Storage)
-  const db = getFirestore(app);
-  const storage = getStorage(app);
+        const firebaseConfig = {
+            apiKey: "AIzaSyCm94rp7EJcz7U9LKBjcwmhkyyCCTeDfxY",
+            authDomain: "arsip-digital-1c79a.firebaseapp.com",
+            projectId: "arsip-digital-1c79a",
+            storageBucket: "arsip-digital-1c79a.firebasestorage.app",
+            messagingSenderId: "935288667143",
+            appId: "1:935288667143:web:ed40a042a47f9f5e60fea2"
+        };
 
-  // PENTING: Agar variabel 'db' dan 'storage' bisa dipakai di file script.js kamu, 
-  // kita tempelkan ke objek 'window' global.
-  window.db = db;
-  window.storage = storage;
-</script>
-    <script src="script.js"></script>
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Ekspos ke window agar script.js bisa mengaksesnya
+        window.db = db;
+        window.storage = storage;
+    </script>
+
+    <!-- PANGGIL FILE JS UTAMA KAMU -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
